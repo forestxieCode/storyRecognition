@@ -113,10 +113,6 @@ export default {
         }
         sum += index1
         this.playFun(require(`../assets/xygq/${sum}line.mp3`))
-        // this.timeOut = true
-        // setTimeout(()=>{
-        //   this.timeOut= false
-        // },600)
     },
     playFun(url){
       let buttonAudio = document.getElementById('buttonAudio');

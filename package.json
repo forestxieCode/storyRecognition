@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "vue": "^2.5.2",
-    "vue-aliplayer-v2": "^1.1.8",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
@@ -48,8 +47,6 @@
     "style-loader": "^1.2.1",
     "uglifyjs-webpack-plugin": "^1.1.1",
     "url-loader": "^0.5.8",
-    "video.js": "^7.7.5",
-    "vue-aliplayer": "0.0.8",
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.5.2",
