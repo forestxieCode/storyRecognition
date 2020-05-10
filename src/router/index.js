@@ -9,6 +9,10 @@ export default new Router({
   routes: [
     {
       path: '/',
+      redirect:'/Poetry'
+    },
+    {
+      path: '/Poetry',
       name: 'Poetry',
       component: Poetry
     },

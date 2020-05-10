@@ -5,7 +5,7 @@
           <span class="fn-button"><img src="../assets/顶端按钮/button_back.png" @click="HandleBack"></span>
       </div>
       <video  controls  preload="auto" x-webkit-airplay="true" poster="../assets/bg.png" x5-playsinline="true" webkit-playsinline="true" playsinline="true" class="myVideo" autoplay="autoplay">
-         <source src="../assets/xygq.mp4" type="video/mp4" >
+         <source src="../assets/xygq.mp4" type="video/mp4">
       </video>
     </div>
 </template>
@@ -15,12 +15,12 @@ export default {
   name: 'PlayVideo',
   methods: {
       HandleHome(){
-         this.$emit('update:playVideoVisable', false)
-        //  this.$router.push({path:'/'})
+         // this.$emit('update:playVideoVisable', false)
+         this.$router.push({path:'/'})
       },
       HandleBack(){
-         this.$emit('update:playVideoVisable', false)
-        //  this.$router.push({path:'/'})
+         // this.$emit('update:playVideoVisable', false)
+         this.$router.push({path:'/'})
       }
   }
 }

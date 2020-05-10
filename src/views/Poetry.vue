@@ -1,67 +1,78 @@
 <template>
     <div class="container">
-        <play-video v-if="playVideoVisable" :playVideoVisable.sync="playVideoVisable"></play-video>
-        <div v-if="!playVideoVisable">
-          <audio src="" id="buttonAudio"></audio>
-          <div class="header">
-              <div class="header-left">
-                  <span class="fn-button"><img src="../assets/顶端按钮/home.png"></span>
-                  <span class="fn-button"><img src="../assets/顶端按钮/prev.png"></span>
-              </div>
-              <div class="header-text">
-                <span class="num">21</span>
-                . 
-                <span @click="hzrdFun('小','title1')" :class="{'left-to-right':currenClickNode ==='hzrd' && 'title1' === onlyKey}">小</span>
-                <span @click="hzrdFun('羊','title2')" :class="{'left-to-right':currenClickNode ==='hzrd' && 'title2' === onlyKey}">羊</span>
-                <span @click="hzrdFun('过','title3')" :class="{'left-to-right':currenClickNode ==='hzrd' && 'title3' === onlyKey}">过</span>
-                <span @click="hzrdFun('桥','title4')" :class="{'left-to-right':currenClickNode ==='hzrd' && 'title4' === onlyKey}">桥</span>
-              </div>
-              <div class="header-right">
-                  <span class="fn-button"><img src="../assets/顶端按钮/next.png"></span>
-                  <span class="fn-button"><img src="../assets/顶端按钮/button_back.png"></span>
-              </div>
-          </div>
-          <div class="connect">
-            <div class="fn-nav">
-                <span @click="handleClick('gsxs')" :class="{'active':currenClickNode ==='gsxs'}"><img src="../assets/左侧按钮图标和声音/gsxs.png"  ></span>
-                <span @click="handleClick('qwld')" :class="{'active':currenClickNode ==='qwld'}"><img src="../assets/左侧按钮图标和声音/qwld.png"></span>
-                <span @click="handleClick('djbf')" :class="{'active':currenClickNode ==='djbf'}"><img src="../assets/左侧按钮图标和声音/djbf.png"></span>
-                <span @click="handleClick('hzrd')" :class="{'active':currenClickNode ==='hzrd'}"><img src="../assets/左侧按钮图标和声音/hzrd.png"></span>
+        <audio src="" id="buttonAudio"></audio>
+        <div class="header">
+            <div class="header-left">
+                <span class="fn-button"><img src="../assets/顶端按钮/home.png"></span>
+                <span class="fn-button"><img src="../assets/顶端按钮/prev.png"></span>
             </div>
-            <div class="text">
-              <div>
-                <div class="paragraph" v-for="(item,index) in words" :key="index+'index'"  :class="{'isZoom':currenClickNode==='hzrd'}"> 
-                  <span v-for="(item1,index1) in item" :key="index1+'index1'" @click="djbfFun(index,index1+1)"  :class="{'left-to-right':currenClickNode ==='djbf' && timeOut }">
-                    <span v-for="(item2,index2) in item1" :key="index2+'index2'" :class="{'blue':tagword.indexOf(item2)!==-1,'left-to-right':currenClickNode ==='hzrd' && 'index2'+index+''+index1+''+index2 === onlyKey }" @click="hzrdFun(item2,'index2'+index+''+index1+''+index2)">
-                      {{item2}}
-                    </span>
+            <div class="header-text" :class="{'red':(currenClickNode==='djbf'||currenClickNode==='qwld')&&ended&&playTitleState}" @click="playTitle">
+              <span class="num">{{ serialNum }}</span>
+              .
+              <span v-for="(item, index) in title" :key="index"
+                    @click="hzrdFun(item, `title`+index)"
+                    :class="{'red':currenClickNode ==='hzrd' && `title`+ index === onlyKey && ended}">
+                    {{ item }}
+              </span>
+            </div>
+            <div class="header-right">
+                <span class="fn-button"><img src="../assets/顶端按钮/next.png"></span>
+                <span class="fn-button"><img src="../assets/顶端按钮/button_back.png"></span>
+            </div>
+        </div>
+        <div class="connect">
+          <div class="fn-nav">
+              <span @click="handleClick('gsxs')" :class="{'active':currenClickNode ==='gsxs'}"><img src="../assets/左侧按钮图标和声音/gsxs.png"></span>
+              <span @click="handleClick('qwld')" :class="{'active':currenClickNode ==='qwld'}"><img src="../assets/左侧按钮图标和声音/qwld.png"></span>
+              <span @click="handleClick('djbf')" :class="{'active':currenClickNode ==='djbf'}"><img src="../assets/左侧按钮图标和声音/djbf.png"></span>
+              <span @click="handleClick('hzrd')" :class="{'active':currenClickNode ==='hzrd'}"><img src="../assets/左侧按钮图标和声音/hzrd.png"></span>
+          </div>
+          <div class="text">
+            <div>
+              <div class="paragraph" v-for="(item,index) in words" :key="index+'index'"  :class="{'isZoom':currenClickNode==='hzrd'}"> 
+                <span v-for="(item1,index1) in item" :key="index1+'index1'" @click="djbfFun(index, index1+1, item1)"  :class="{'red':(currenClickNode ==='djbf' || currenClickNode==='qwld') && currenLine === item1 && ended  }">
+                  <span v-for="(item2,index2) in item1" :key="index2+'index2'" :class="{'blue':tagword.indexOf(item2)!==-1,'red':currenClickNode ==='hzrd' && 'index2'+index+''+index1+''+index2 === onlyKey&&ended }" @click="hzrdFun(item2,'index2' + index+'' + index1 + '' + index2)">
+                    {{ item2 }}
                   </span>
-              </div>
-              </div>
+                </span>
+            </div>
             </div>
           </div>
-          <div class="footer">
-              <div v-for="(item,index) in tagword" :key="index">
-                <span :class="{'isradius':isradius.indexOf(item)!==-1}" @click="hzrdFun(item)">{{item}}</span>
-                {{ index + 1}}
-              </div>
-          </div>
-      </div>
+        </div>
+        <div class="footer">
+            <div v-for="(item,index) in tagword" :key="index">
+              <span :class="{'isradius':isradius.indexOf(item)!==-1,'red':currenClickNode ==='hzrd' && onlyKey === item && ended }" @click="hzrdFun(item,item)">{{item}}</span>
+              {{ index + 1 }}
+            </div>
+        </div>
     </div>
 </template>
 <script>
 import PlayVideo from './PlayVideo'
+import lodash from 'lodash'
+const debounce = (fn, delay = 300) => {   //默认300毫秒
+    var timer;
+    return function() {
+        var args = arguments;
+        if(timer) {
+            clearTimeout(timer);
+        }
+        timer = setTimeout(() => {
+            fn.apply(this, args);   // this 指向vue
+        }, delay);
+    };
+}
 export default {
   name: 'Poetry',
   data:function(){
     return{
-      playVideoVisable: false,
+      serialNum: 21,
+      title:'小羊过桥',
       words:[
        [
          '河上有条小木桥，',
         '小黑羊住在桥的东边，',
         '小白羊住在桥的西边。',
-
        ],
        [
          '一天，',
@@ -76,49 +87,71 @@ export default {
         '两个都掉进了河里。'
        ]
      ],
+     copyWords:[],
      tagword:['河', '条', '木', '桥', '黑','羊' ,'边','先','最','后','掉'],
      isradius:['木','后'],
-     currenClickNode:'',
-     timeOut:false,
-     onlyKey:''
+     currenClickNode:'', // 当前菜单的状态
+     onlyKey:'',
+     ended: false, // 是否播放结束
+     currenLine:'', // 每行的文字
+     playTitleState:false,// 读标题的状态
+     sumCount:0, // 统计有多少句子
+     currenCount:0
     }
   },
   components:{
     PlayVideo
   },
+  mounted(){
+    this.words.forEach(item=>{
+      this.sumCount += item.length
+    })
+    // 将二维数组转为一维数组
+    this.copyWords = this.words.reduce(function (a, b) { return a.concat(b)}, []);
+  },
   methods:{
-    handleClick(node){
+    handleClick(node) {
       this.currenClickNode = node
       this.onlyKey  = ''
-      if(node === 'gsxs'){
-        setTimeout(()=>{
-          this.playVideoVisable = true
-        },1200)
-        // this.$router.push({path:'PlayVideo'})
-      }else if(node === 'qwld'){
+      this.currenLine = ''
+      if(node === 'gsxs') {
+        setTimeout(() => {
+          this.$router.push({path : 'PlayVideo'})
+        }, 1200)
+      }else if(node === 'qwld') {
         this.qwldFun()
       }
       this.menuPlay(node)
     },
     // 菜单播放
-    menuPlay(fileName){
-        this.playFun(require(`../assets/左侧按钮图标和声音/audio_${fileName}.mp3`))
+    menuPlay(fileName) {
+       this.playFun(require(`../assets/左侧按钮图标和声音/audio_${fileName}.mp3`))
     },
     // 汉字认读
-    hzrdFun(word,key){
+    hzrdFun(word, key) {
         if (!(/[\u4e00-\u9fa5]/.test(word) && this.currenClickNode === 'hzrd')) return;
         this.onlyKey = key
         this.playFun(require(`../assets/xygq/${word}.mp3`))
     },
     // 全文朗读
-    qwldFun(){
-      setTimeout(()=>{
-        this.playFun(require(`../assets/xygq/xygq.mp3`))
-      },1500)
+    qwldFun() {
+      setTimeout(() => {
+        this.currenCount = 0
+        this.playTitleState = true
+        this.recursiveReading()
+      }, 1500)
     },
+    recursiveReading: debounce(function() {
+      if(this.currenCount > this.sumCount) return 
+      this.currenLine = this.copyWords[this.currenCount - 1]
+      this.playFun2(require(`../assets/xygq/${this.currenCount}line.mp3`))
+      this.currenCount ++ 
+    }),
     // 短句播放
-    djbfFun(index,index1){
+    djbfFun(index,index1,currenLine) {
         if (!(this.currenClickNode === 'djbf')) return;
+        this.playTitleState = false
+        this.currenLine = currenLine
         let sum = 0;
         let newIndex = index - 1 
         while(newIndex>=0){
@@ -128,10 +161,39 @@ export default {
         sum += index1
         this.playFun(require(`../assets/xygq/${sum}line.mp3`))
     },
-    playFun(url){
+    // 读标题
+    playTitle() {
+      if(this.currenClickNode === 'djbf'){
+        this.playTitleState = true
+        this.currenLine = ''
+        this.playFun(require(`../assets/xygq/0line.mp3`))
+      }
+    },
+    playFun(url) {
+      let self = this
       let buttonAudio = document.getElementById('buttonAudio');
+      self.ended = true
       buttonAudio.setAttribute('src', url);
       buttonAudio.play();
+      buttonAudio.addEventListener('ended',function(){
+        self.ended = false
+        self.playTitleState = false
+      })
+    },
+    // 全文朗读
+    playFun2(url) {
+      let self = this
+      let buttonAudio = document.getElementById('buttonAudio');
+      self.ended = true
+      buttonAudio.setAttribute('src', url);
+      buttonAudio.play();
+      buttonAudio.addEventListener('ended',function(){
+        self.ended = false
+        self.playTitleState = false
+        if(self.currenClickNode === 'qwld' && self.currenCount <= self.sumCount){
+            self.recursiveReading()
+        }
+      })
     }
   }
 }
@@ -253,6 +315,12 @@ export default {
 
 .blue {
   color: blue;
+}
+.red {
+  color: red;
+}
+.red span{
+  color: red;
 }
 
 .footer{
@@ -507,4 +575,5 @@ export default {
     margin-right: 7.3px;
   }
 }
+
 </style>
