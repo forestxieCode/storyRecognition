@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import 'lib-flexible/flexible'
+import 'dev-lib-flexible'
 import './assets/css/base.css'
 import Video from 'video.js'
 import 'video.js/dist/video-js.css'

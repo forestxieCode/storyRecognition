@@ -11,9 +11,5 @@ export default {
 </script>
 
 <style lang="less">
-#app{
-  width: 100%;
-  height: calc(100vh);
-}
 @import "./assets/font/font.css";
 </style>

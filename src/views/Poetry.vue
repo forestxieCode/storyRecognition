@@ -108,7 +108,7 @@ export default {
     hzrdFun(word,key){
         if (!(/[\u4e00-\u9fa5]/.test(word) && this.currenClickNode === 'hzrd')) return;
         this.onlyKey = key
-        this.playFun(require(`../assets/xygq/${word}.mp3`)) 
+        this.playFun(require(`../assets/xygq/${word}.mp3`))
     },
     // 全文朗读
     qwldFun(){
@@ -140,9 +140,9 @@ export default {
 .container{
   display: flex;
   width: 100%;
+  height: 100%;
   background: url('../assets/bg.png') no-repeat;
   background-size: 100% 100%;
-  height: 100%;
   flex-direction: column;
 }
 .header{
