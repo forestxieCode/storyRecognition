@@ -1,5 +1,5 @@
 <template>
-    <div v-horizontal-screen class="playVideo">
+    <div class="play-video">
       <div class="header-nav">
           <span class="fn-button"><img src="../assets/顶端按钮/home.png" @click="HandleHome"></span>
           <span class="fn-button"><img src="../assets/顶端按钮/button_back.png" @click="HandleBack"></span>
@@ -15,16 +15,22 @@ export default {
   name: 'PlayVideo',
   methods: {
       HandleHome(){
-         this.$router.push({path:'/'})
+         this.$emit('update:playVideoVisable', false)
+        //  this.$router.push({path:'/'})
       },
       HandleBack(){
-         this.$router.push({path:'/'})
+         this.$emit('update:playVideoVisable', false)
+        //  this.$router.push({path:'/'})
       }
   }
 }
 </script>
 
 <style >
+.play-video{
+  width: 100%;
+  height: 100%;
+}
 .myVideo{
   width: 100%;
   height: 100%;
@@ -58,8 +64,8 @@ export default {
   overflow: hidden;
 }
 @media screen and (min-width:900px) and (max-width:1200px){
-    .header-nav{
-      padding: 13px;
-    }
+  .header-nav{
+    padding: 13px;
+  }
 }
 </style>

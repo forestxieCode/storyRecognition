@@ -21,7 +21,6 @@ Vue.directive("horizontal-screen", {
           document.documentElement.clientWidth,
           document.documentElement.clientHeight
       ];
-
       // 设备开启竖屏锁定，强制横屏模式
       let vertical = () => {
           let [width, height] = getDocumentSize();
@@ -37,10 +36,9 @@ Vue.directive("horizontal-screen", {
           el.style.width = `${width}px`;
           el.style.height = `${height}px`;
       };
-
       el.resize = function() {
           if (document.activeElement.nodeName === "INPUT") return; // 兼容安卓
-          if ([null, 180, 0].includes(window.orientation)) {
+          if ([null, undefined, 180, 0].includes(window.orientation)) {
               vertical();
           } else if ([90, -90].includes(window.orientation)) {
               reset();
