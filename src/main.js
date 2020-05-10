@@ -5,10 +5,6 @@ import App from './App'
 import router from './router'
 import 'dev-lib-flexible'
 import './assets/css/base.css'
-import Video from 'video.js'
-import 'video.js/dist/video-js.css'
-
-Vue.prototype.$video = Video
 
 Vue.config.productionTip = false
 
