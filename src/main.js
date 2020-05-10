@@ -38,7 +38,7 @@ Vue.directive("horizontal-screen", {
       };
       el.resize = function() {
           if (document.activeElement.nodeName === "INPUT") return; // 兼容安卓
-          if ([null, undefined, 180, 0].includes(window.orientation)) {
+          if ([null, 180, 0].includes(window.orientation)) {
               vertical();
           } else if ([90, -90].includes(window.orientation)) {
               reset();

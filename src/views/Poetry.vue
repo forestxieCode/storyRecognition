@@ -1,5 +1,5 @@
 <template>
-    <div class="container" v-horizontal-screen>
+    <div class="container">
         <play-video v-if="playVideoVisable" :playVideoVisable.sync="playVideoVisable"></play-video>
         <div v-if="!playVideoVisable">
           <audio src="" id="buttonAudio"></audio>
@@ -21,7 +21,6 @@
                   <span class="fn-button"><img src="../assets/顶端按钮/button_back.png"></span>
               </div>
           </div>
-
           <div class="connect">
             <div class="fn-nav">
                 <span @click="handleClick('gsxs')" :class="{'active':currenClickNode ==='gsxs'}"><img src="../assets/左侧按钮图标和声音/gsxs.png"  ></span>
@@ -92,7 +91,9 @@ export default {
       this.currenClickNode = node
       this.onlyKey  = ''
       if(node === 'gsxs'){
-        this.playVideoVisable = true
+        setTimeout(()=>{
+          this.playVideoVisable = true
+        },1200)
         // this.$router.push({path:'PlayVideo'})
       }else if(node === 'qwld'){
         this.qwldFun()
@@ -141,7 +142,7 @@ export default {
   width: 100%;
   background: url('../assets/bg.png') no-repeat;
   background-size: 100% 100%;
-  height: calc(100vh);
+  height: 100%;
   flex-direction: column;
 }
 .header{

@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" v-horizontal-screen>
     <router-view/>
   </div>
 </template>
@@ -11,5 +11,9 @@ export default {
 </script>
 
 <style lang="less">
+#app{
+  width: 100%;
+  height: calc(100vh);
+}
 @import "./assets/font/font.css";
 </style>

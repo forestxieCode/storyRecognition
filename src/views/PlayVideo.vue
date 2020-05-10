@@ -26,7 +26,7 @@ export default {
 }
 </script>
 
-<style >
+<style>
 .play-video{
   width: 100%;
   height: 100%;
