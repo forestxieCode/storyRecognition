@@ -6,14 +6,16 @@
                 <span class="fn-button"><img src="../assets/顶端按钮/home.png"></span>
                 <span class="fn-button"><img src="../assets/顶端按钮/prev.png"></span>
             </div>
-            <div class="header-text" :class="{'red':(currenClickNode==='djbf'||currenClickNode==='qwld')&&ended&&playTitleState}" @click="playTitle">
-              <span class="num">{{ serialNum }}</span>
-              .
-              <span v-for="(item, index) in title" :key="index"
-                    @click="hzrdFun(item, `title`+index)"
-                    :class="{'red':currenClickNode ==='hzrd' && `title`+ index === onlyKey && ended}">
-                    {{ item }}
-              </span>
+            <div class="header-text" @click="playTitle">
+              <div :class="{'left-to-right-animation':(currenClickNode==='djbf'||currenClickNode==='qwld')&&ended&&playTitleState}">
+                <span class="num">{{ serialNum }}</span>
+                .
+                <span v-for="(item, index) in title" :key="index"
+                      @click="hzrdFun(item, `title`+index)"
+                      :class="{'red':currenClickNode ==='hzrd' && `title`+ index === onlyKey && ended}">
+                      {{ item }}
+                </span>
+              </div>
             </div>
             <div class="header-right">
                 <span class="fn-button"><img src="../assets/顶端按钮/next.png"></span>
@@ -30,7 +32,7 @@
           <div class="text">
             <div>
               <div class="paragraph" v-for="(item,index) in words" :key="index+'index'"  :class="{'isZoom':currenClickNode==='hzrd'}"> 
-                <span v-for="(item1,index1) in item" :key="index1+'index1'" @click="djbfFun(index, index1+1, item1)"  :class="{'red':(currenClickNode ==='djbf' || currenClickNode==='qwld') && currenLine === item1 && ended  }">
+                <span v-for="(item1,index1) in item" :key="index1+'index1'" @click="djbfFun(index, index1+1, item1)"  :class="{'left-to-right-animation':(currenClickNode ==='djbf' || currenClickNode==='qwld') && currenLine === item1 && ended  }">
                   <span v-for="(item2,index2) in item1" :key="index2+'index2'" :class="{'blue':tagword.indexOf(item2)!==-1,'red':currenClickNode ==='hzrd' && 'index2'+index+''+index1+''+index2 === onlyKey&&ended }" @click="hzrdFun(item2,'index2' + index+'' + index1 + '' + index2)">
                     {{ item2 }}
                   </span>
@@ -172,6 +174,7 @@ export default {
     playFun(url) {
       let self = this
       let buttonAudio = document.getElementById('buttonAudio');
+      console.log(buttonAudio.duration)
       self.ended = true
       buttonAudio.setAttribute('src', url);
       buttonAudio.play();
@@ -224,7 +227,15 @@ export default {
   display: flex;
   letter-spacing: 4px;
   justify-content: center;
-  font-family: 'JDBS';
+  font-family: 'HYKTJ';
+}
+.header-text div{
+  text-decoration: none;
+  background-image: linear-gradient(rgba(255, 0, 0, 1), rgba(255, 0, 0, 1));
+  background-size: 0% 2px;
+  background-position: bottom left;
+  background-repeat: no-repeat;
+  padding-bottom: 3px;
 }
 .header-text .num{
   font-family: 'ANKLEPAN';
@@ -302,6 +313,21 @@ export default {
   font-size: 13px;
   font-weight: 550;
   font-family: 'HYKTJ';
+}
+.paragraph span {
+  text-decoration: none;
+  background-image: linear-gradient(rgba(255, 0, 0, 1), rgba(255, 0, 0, 1));
+  background-size: 0% 2px;
+  background-position: bottom left;
+  background-repeat: no-repeat;
+  padding-bottom: 3px;
+}
+.left-to-right-animation {
+  transition-property: background-size;
+  transition-timing-function: ease-in-out;
+  transition-duration: 3s;
+  /* color: #808080; */
+  background-size: 98% 2px!important;
 }
 .connect .text .isZoom{
   letter-spacing: 3px;
