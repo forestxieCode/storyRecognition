@@ -238,7 +238,7 @@ export default {
   padding-bottom: 3px;
 }
 .header-text .num{
-  font-family: 'ANKLEPAN';
+  font-family: 'HYKTJ';
 }
 .fn-button{
   display: inline-block;
