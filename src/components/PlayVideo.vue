@@ -15,11 +15,9 @@ export default {
   name: 'PlayVideo',
   methods: {
       HandleHome(){
-         // this.$emit('update:playVideoVisable', false)
          this.$router.push({path:'/'})
       },
       HandleBack(){
-         // this.$emit('update:playVideoVisable', false)
          this.$router.push({path:'/'})
       }
   }

@@ -50,20 +50,7 @@
     </div>
 </template>
 <script>
-import PlayVideo from './PlayVideo'
-import lodash from 'lodash'
-const debounce = (fn, delay = 300) => {   //默认300毫秒
-    var timer;
-    return function() {
-        var args = arguments;
-        if(timer) {
-            clearTimeout(timer);
-        }
-        timer = setTimeout(() => {
-            fn.apply(this, args);   // this 指向vue
-        }, delay);
-    };
-}
+import { debounce } from '../utils/tools'
 export default {
   name: 'Poetry',
   data:function(){
@@ -101,9 +88,6 @@ export default {
      currenCount:0,
      time: 3
     }
-  },
-  components:{
-    PlayVideo
   },
   mounted(){
     this.words.forEach(item=>{
@@ -179,7 +163,6 @@ export default {
       buttonAudio.setAttribute('src', url);
       buttonAudio.addEventListener("canplay", function(){//监听audio是否加载完毕，如果加载完毕，则读取audio播放时间
         self.time = buttonAudio.duration
-        console.log(self.time)
         buttonAudio.play();
       });
       buttonAudio.addEventListener('ended',function(){
@@ -196,7 +179,6 @@ export default {
       buttonAudio.addEventListener("canplay", function(){ //监听audio是否加载完毕，如果加载完毕，则读取audio播放时间
         self.time = buttonAudio.duration
         buttonAudio.play();
-        // console.log(buttonAudio.duration)
       });
       buttonAudio.addEventListener('ended',function(){
         self.ended = false
@@ -210,6 +192,7 @@ export default {
 }
 </script>
 <style>
+/* 公共部分 start*/
 .container{
   display: flex;
   width: 100%;
@@ -266,6 +249,8 @@ export default {
 .fn-button + .fn-button{
   margin-left: 7px;
 }
+
+/* 公共部分 end*/
 
 .connect{
   display: flex;
@@ -330,19 +315,6 @@ export default {
   background-repeat: no-repeat;
   padding-bottom: 3px;
 }
-@keyframes line-left-to-right {
-	from {
-		background-size: 0% 2px;
-	}		
-	to {
-		background-size: 98% 2px;
-	}
-}
-.left-to-right-animation {
-  animation-name:line-left-to-right!important;
-  animation-duration:3s;
-  animation-timing-function:ease-in-out!important;
-}
 .connect .text .isZoom{
   letter-spacing: 3px;
   text-indent: 30px;
@@ -352,17 +324,6 @@ export default {
 .connect .text .isZoom + .isZoom{
   margin-top: 13px;
 }
-
-.blue {
-  color: blue;
-}
-.red {
-  color: red;
-}
-.red span{
-  color: red;
-}
-
 .footer{
   padding-left: 25px;
   box-sizing: border-box;
@@ -399,7 +360,32 @@ export default {
   background: url('../assets/square.png') no-repeat;
   background-size: cover;
 }
-@keyframes lineIn {
+
+.blue {
+  color: blue;
+}
+.red {
+  color: red;
+}
+.red span{
+  color: red;
+}
+
+
+@keyframes line-left-to-right {
+	from {
+		background-size: 0% 2px;
+	}		
+	to {
+		background-size: 98% 2px;
+	}
+}
+.left-to-right-animation {
+  animation-name:line-left-to-right!important;
+  animation-duration:3s;
+  animation-timing-function:ease-in-out!important;
+}
+/* @keyframes lineIn {
 	from {
 		width: 0;
 	}		
@@ -410,24 +396,23 @@ export default {
 .left-to-right{
   position:relative;
   text-align: center;
-}
+} */
   /*使用伪类给a下面添加下划线*/
   /*css3为了区别伪类选择器把::改为:,使用:也会自动转为::*/
-.left-to-right::after{
+/* .left-to-right::after{
   content: "";
   display: block;
   width: 0px;
   height: 2px;
   position: absolute;
   left: 0px;
-  bottom: -2px;/*==top: 30px;*/ /*用定位的方法设置下划线与标题的距离*/
+  bottom: -2px;
   background: red;
   -webkit-animation: lineIn 0.9s;
   border-radius: 20px;
-  /* Safari 和 Chrome */
   animation: lineIn 0.9s;
   z-index: 10;
-}
+} */
 
 
 @media screen and (min-width:880px) and (max-width:900px){
