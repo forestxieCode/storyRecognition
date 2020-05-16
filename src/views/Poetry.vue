@@ -1,13 +1,13 @@
 <template>
     <div class="container">
-        <audio src="" id="buttonAudio"></audio>
+        <audio src="" ref="buttonAudio"></audio>
         <div class="header">
             <div class="header-left">
                 <span class="fn-button"><img src="../assets/顶端按钮/home.png"></span>
                 <span class="fn-button"><img src="../assets/顶端按钮/prev.png"></span>
             </div>
             <div class="header-text" @click="playTitle">
-              <div :class="{'left-to-right-animation':(currenClickNode==='djbf'||currenClickNode==='qwld')&&ended&&playTitleState}">
+              <div :class="{'left-to-right-animation':(currenClickNode==='djbf'||currenClickNode==='qwld')&&ended&&playTitleState}" :style="`transition-duration:${time}s`"> 
                 <span class="num">{{ serialNum }}</span>
                 .
                 <span v-for="(item, index) in title" :key="index"
@@ -32,7 +32,7 @@
           <div class="text">
             <div>
               <div class="paragraph" v-for="(item,index) in words" :key="index+'index'"  :class="{'isZoom':currenClickNode==='hzrd'}"> 
-                <span v-for="(item1,index1) in item" :key="index1+'index1'" @click="djbfFun(index, index1+1, item1)"  :class="{'left-to-right-animation':(currenClickNode ==='djbf' || currenClickNode==='qwld') && currenLine === item1 && ended  }">
+                <span v-for="(item1,index1) in item" :key="index1+'index1'" @click="djbfFun(index, index1+1, item1)"  :class="{'left-to-right-animation':(currenClickNode ==='djbf' || currenClickNode==='qwld') && currenLine === item1 && ended  }" :style="`animation-duration:${time}s`">
                   <span v-for="(item2,index2) in item1" :key="index2+'index2'" :class="{'blue':tagword.indexOf(item2)!==-1,'red':currenClickNode ==='hzrd' && 'index2'+index+''+index1+''+index2 === onlyKey&&ended }" @click="hzrdFun(item2,'index2' + index+'' + index1 + '' + index2)">
                     {{ item2 }}
                   </span>
@@ -98,7 +98,8 @@ export default {
      currenLine:'', // 每行的文字
      playTitleState:false,// 读标题的状态
      sumCount:0, // 统计有多少句子
-     currenCount:0
+     currenCount:0,
+     time: 3
     }
   },
   components:{
@@ -161,7 +162,7 @@ export default {
           newIndex --
         }
         sum += index1
-        this.playFun(require(`../assets/xygq/${sum}line.mp3`))
+        this.playFun(require(`../assets/xygq/${sum}line.mp3`)) 
     },
     // 读标题
     playTitle() {
@@ -173,11 +174,14 @@ export default {
     },
     playFun(url) {
       let self = this
-      let buttonAudio = document.getElementById('buttonAudio');
-      console.log(buttonAudio.duration)
+      let buttonAudio = this.$refs.buttonAudio;
       self.ended = true
       buttonAudio.setAttribute('src', url);
-      buttonAudio.play();
+      buttonAudio.addEventListener("canplay", function(){//监听audio是否加载完毕，如果加载完毕，则读取audio播放时间
+        self.time = buttonAudio.duration
+        console.log(self.time)
+        buttonAudio.play();
+      });
       buttonAudio.addEventListener('ended',function(){
         self.ended = false
         self.playTitleState = false
@@ -186,10 +190,14 @@ export default {
     // 全文朗读
     playFun2(url) {
       let self = this
-      let buttonAudio = document.getElementById('buttonAudio');
+      let buttonAudio = this.$refs.buttonAudio;
       self.ended = true
       buttonAudio.setAttribute('src', url);
-      buttonAudio.play();
+      buttonAudio.addEventListener("canplay", function(){ //监听audio是否加载完毕，如果加载完毕，则读取audio播放时间
+        self.time = buttonAudio.duration
+        buttonAudio.play();
+        // console.log(buttonAudio.duration)
+      });
       buttonAudio.addEventListener('ended',function(){
         self.ended = false
         self.playTitleState = false
@@ -322,12 +330,18 @@ export default {
   background-repeat: no-repeat;
   padding-bottom: 3px;
 }
+@keyframes line-left-to-right {
+	from {
+		background-size: 0% 2px;
+	}		
+	to {
+		background-size: 98% 2px;
+	}
+}
 .left-to-right-animation {
-  transition-property: background-size;
-  transition-timing-function: ease-in-out;
-  transition-duration: 3s;
-  /* color: #808080; */
-  background-size: 98% 2px!important;
+  animation-name:line-left-to-right!important;
+  animation-duration:3s;
+  animation-timing-function:ease-in-out!important;
 }
 .connect .text .isZoom{
   letter-spacing: 3px;
