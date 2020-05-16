@@ -1,11 +1,11 @@
 <template>
-    <div v-horizontal-screen class="playVideo">
+    <div class="play-video">
       <div class="header-nav">
           <span class="fn-button"><img src="../assets/顶端按钮/home.png" @click="HandleHome"></span>
           <span class="fn-button"><img src="../assets/顶端按钮/button_back.png" @click="HandleBack"></span>
       </div>
       <video  controls  preload="auto" x-webkit-airplay="true" poster="../assets/bg.png" x5-playsinline="true" webkit-playsinline="true" playsinline="true" class="myVideo" autoplay="autoplay">
-         <source src="../assets/xygq.mp4" type="video/mp4" >
+         <source src="../assets/xygq.mp4" type="video/mp4">
       </video>
     </div>
 </template>
@@ -24,7 +24,11 @@ export default {
 }
 </script>
 
-<style >
+<style>
+.play-video{
+  width: 100%;
+  height: 100%;
+}
 .myVideo{
   width: 100%;
   height: 100%;
@@ -58,8 +62,8 @@ export default {
   overflow: hidden;
 }
 @media screen and (min-width:900px) and (max-width:1200px){
-    .header-nav{
-      padding: 13px;
-    }
+  .header-nav{
+    padding: 13px;
+  }
 }
 </style>

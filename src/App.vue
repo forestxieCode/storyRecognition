@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" v-horizontal-screen>
     <router-view/>
   </div>
 </template>

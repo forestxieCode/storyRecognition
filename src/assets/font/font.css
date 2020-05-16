@@ -1,35 +1,7 @@
 
 @font-face {  
-    font-family: 'ANKLEPAN';  
-    src: url('ANKLEPAN_1.TTF'); 
-    font-weight: normal;  
-    font-style: normal;  
-}
-
-@font-face {  
-    font-family: 'JDBS';  
-    src: url('JDBS.TTF'); 
-    font-weight: normal;  
-    font-style: normal;  
-}
-
-@font-face {  
     font-family: 'HYKTJ';  
     src: url('HYKTJ.TTF'); 
-    font-weight: normal;  
-    font-style: normal;  
-}
-
-@font-face {  
-    font-family: 'HYKTJ';  
-    src: url('HYKTJ.TTF'); 
-    font-weight: normal;  
-    font-style: normal;  
-}
-
-@font-face {  
-    font-family: 'HYTTTJ';  
-    src: url('HYTTTJ.TTF'); 
     font-weight: normal;  
     font-style: normal;  
 }
