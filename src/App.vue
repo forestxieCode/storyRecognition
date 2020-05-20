@@ -12,4 +12,7 @@ export default {
 
 <style lang="less">
 @import "./assets/font/font.css";
+#app{
+  font-family: 'HYKTJ';
+}
 </style>
