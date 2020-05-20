@@ -1,21 +1,16 @@
-# project
+# Tale Blog
 
-> A Vue.js project
+![1.png](https://i.loli.net/2020/05/20/3SesaPZKw7gEtUR.png)
 
-## Build Setup
+`Tale`一个移动端的小作品，实现功能语音播放，文字动画，手机适配
 
-``` bash
-# install dependencies
-npm install
+## Feature
 
-# serve with hot reload at localhost:8080
-npm run dev
++ 主界面左侧中有“故事欣赏”“全文朗读”“短句播放”“汉字认读”四个按钮，点击每个按钮会发声，并有红色描边显示
++ 点击“故事欣赏”，按钮发声，并红色描边显示；发声结束，画面全屏播放一段mp4视频，点击角落返回按钮，回到主界面。
++ 点击“全文朗读”，按钮发声，并红色描边显示；发声结束，播放主界面中标题和正文的语音，每句话的字跟读变红色
++ 点击“短句播放”，按钮发声，并红色描边显示；发声结束，点击页面正文中的每一句话（包括标题），该句下方出现红色下划线，同时播放对应句子的语音，句中每个字跟读变红色。
++ 点击“汉字认读”，按钮发声，并红色描边显示；发声结束，点击页面正文（包括标题）中的每一个字，该字下方出现红色下划线，同时播放对应汉字的语音。
 
-# build for production with minification
-npm run build
+### 注：（2、兼容主流手机(苹果、华为、小米、vivo、oppo、三星)、平板(苹果、华为、小米、三星)）
 
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
